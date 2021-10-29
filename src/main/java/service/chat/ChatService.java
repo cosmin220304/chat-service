@@ -11,8 +11,8 @@ public interface ChatService {
     static @Nullable ChatService getInstance() {
         return null;
     }
-    List<Conversation> getConversationByUserId(@NonNull String userId);
-    List<Conversation> getConversationById(@NonNull String conversationId);
+    List<Conversation> getAllConversationsByUserId(@NonNull String userId);
+    List<Conversation> getAllConversationsById(@NonNull String conversationId);
     Conversation getConversationBetweenUsers(@NonNull String user1, @NonNull String user2);
     Message sendMessage(@NonNull String conversationId, @NonNull String message);
     Message readMessages(@NonNull String conversationId, Integer offset, Integer limit);

@@ -20,13 +20,13 @@ public class ConversationController extends HttpServlet {
         chatService = ChatService.getInstance();
     }
 
+    public void init(ChatService chatService) throws ServletException {
+        super.init();
+        this.chatService = chatService;
+    }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.getWriter().println("got conversation");
-    }
-
-    @Override
-    protected void doPost(@ValidateMessagePayload HttpServletRequest request, HttpServletResponse response) {
-        //to do
     }
 }

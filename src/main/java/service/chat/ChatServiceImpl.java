@@ -28,12 +28,12 @@ public final class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public List<Conversation> getConversationByUserId(@NonNull String userId) {
+    public List<Conversation> getAllConversationsByUserId(@NonNull String userId) {
         return null;
     }
 
     @Override
-    public List<Conversation> getConversationById(@NonNull String conversationId) {
+    public List<Conversation> getAllConversationsById(@NonNull String conversationId) {
         return null;
     }
 
