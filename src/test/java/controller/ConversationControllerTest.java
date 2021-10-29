@@ -9,6 +9,9 @@ import service.chat.ChatService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class ConversationControllerTest extends Mockito {
     private HttpServletRequest request;
@@ -18,9 +21,14 @@ public class ConversationControllerTest extends Mockito {
     private ChatService mockChatService;
 
     @BeforeEach
-    public void setUp() throws ServletException {
+    public void setUp() throws ServletException, IOException {
         request = mock(HttpServletRequest.class);
+
         response = mock(HttpServletResponse.class);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(writer);
+
         mockChatService = mock(ChatService.class);
         conversationController = new ConversationController();
         conversationController.init(mockChatService);
@@ -36,7 +44,7 @@ public class ConversationControllerTest extends Mockito {
 
         // Assert
         verify(mockChatService, times(1)).getAllConversationsByUserId("123");
-        verifyNoMoreInteractions();
+        verifyNoMoreInteractions(mockChatService);
     }
 
     @Test
@@ -49,7 +57,7 @@ public class ConversationControllerTest extends Mockito {
 
         // Assert
         verify(mockChatService, times(1)).getAllConversationsById("123");
-        verifyNoMoreInteractions();
+        verifyNoMoreInteractions(mockChatService);
     }
 
     @Test
@@ -62,6 +70,6 @@ public class ConversationControllerTest extends Mockito {
 
         // Assert
         verify(mockChatService, times(1)).getConversationBetweenUsers("123", "456");
-        verifyNoMoreInteractions();
+        verifyNoMoreInteractions(mockChatService);
     }
 }
