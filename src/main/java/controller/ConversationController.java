@@ -2,28 +2,27 @@ package controller;
 
 import aop.annotations.ValidateMessagePayload;
 import service.chat.ChatService;
-import service.chat.ChatServiceImpl;
 
-import java.io.*;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-@WebServlet("/api/chat-service")
-public class ChatServiceController extends HttpServlet {
-
+@WebServlet("/api/conversations")
+public class ConversationController extends HttpServlet {
     private ChatService chatService;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        chatService = new ChatServiceImpl();
-        System.out.println("test123");
+        chatService = ChatService.getInstance();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        response.getWriter().println("hello world");
+        response.getWriter().println("got conversation");
     }
 
     @Override

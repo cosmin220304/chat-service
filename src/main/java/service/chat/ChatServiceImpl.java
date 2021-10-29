@@ -10,14 +10,21 @@ import service.message.MessageServiceImpl;
 
 import java.util.List;
 
-public class ChatServiceImpl implements ChatService{
-
+public final class ChatServiceImpl implements ChatService{
+    private static ChatService instance;
     private final ConversationService conversationService;
     private final MessageService messageService;
 
-    public ChatServiceImpl() {
+    private ChatServiceImpl() {
         this.conversationService = new ConversationServiceImpl();
         this.messageService = new MessageServiceImpl();
+    }
+
+    public static ChatService getInstance() {
+        if (null == instance) {
+            instance = new ChatServiceImpl();
+        }
+        return instance;
     }
 
     @Override
