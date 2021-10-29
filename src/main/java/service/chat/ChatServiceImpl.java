@@ -43,12 +43,12 @@ public final class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public Message sendMessage(@NonNull String conversationId, @NonNull Message message) {
+    public Message sendMessage(@NonNull String conversationId, @NonNull String message) {
         return null;
     }
 
     @Override
-    public Message readMessages(@NonNull String conversationId, Integer offset, Integer limit) {
+    public List<Message> readMessages(@NonNull String conversationId, Integer offset, Integer limit) {
         return null;
     }
 }

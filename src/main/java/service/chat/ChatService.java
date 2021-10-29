@@ -14,6 +14,6 @@ public interface ChatService {
     List<Conversation> getAllConversationsByUserId(@NonNull String userId);
     List<Conversation> getAllConversationsById(@NonNull String conversationId);
     Conversation getConversationBetweenUsers(@NonNull String user1, @NonNull String user2);
-    Message sendMessage(@NonNull String conversationId, @NonNull Message message);
-    Message readMessages(@NonNull String conversationId, Integer offset, Integer limit);
+    Message sendMessage(@NonNull String conversationId, @NonNull String message);
+    List<Message> readMessages(@NonNull String conversationId, Integer offset, Integer limit);
 }

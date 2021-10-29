@@ -32,6 +32,11 @@ public class ConversationController extends HttpServlet {
         response.setContentType("application/json");
         String queryString = request.getQueryString();
 
+        if (queryString == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         if (queryString.contains("userId")) {
             String userId = queryString.split("userId=")[1];
             List<Conversation> conversations = chatService.getAllConversationsByUserId(userId);
@@ -47,6 +52,8 @@ public class ConversationController extends HttpServlet {
             String user2 = queryString.split("user2=")[1];
             Conversation conversation = chatService.getConversationBetweenUsers(user1, user2);
             response.getWriter().println(conversation);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

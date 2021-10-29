@@ -1,6 +1,7 @@
 package controller;
 
 import models.Message;
+import models.SendMessageRequestPayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,6 +12,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class MessageControllerTest extends Mockito {
     private HttpServletRequest request;
@@ -51,15 +53,15 @@ public class MessageControllerTest extends Mockito {
     @Test
     public void Given_Post_With_QueryString_ConversationId_Call_sendMessage() throws Exception {
         // Arrange
+        String body = "{ \"message\": \"test\" }";
         when(request.getParameter("conversationId")).thenReturn("123");
-        ServletInputStream inputStream = mock(ServletInputStream.class);
-        when(request.getInputStream()).thenReturn(inputStream);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(body)));
 
         // Act
         messageController.doPost(request, response);
 
         // Assert
-        verify(mockChatService, times(1)).sendMessage(eq("123"), any(Message.class));
+        verify(mockChatService, times(1)).sendMessage(eq("123"), eq("test"));
         verifyNoMoreInteractions(mockChatService);
     }
 }
