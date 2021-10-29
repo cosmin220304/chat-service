@@ -19,9 +19,17 @@ public class MessageController extends HttpServlet {
         chatService = ChatService.getInstance();
     }
 
+    public void init(ChatService chatService) throws ServletException {
+        super.init();
+        this.chatService = chatService;
+    }
+
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        response.getWriter().println("got message");
+//        String conversationId = request.getParameter("conversationId");
+        response.setContentType("application/json");
+
+//        response.getWriter().println(test);
     }
 
     @Override

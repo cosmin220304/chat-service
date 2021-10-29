@@ -72,4 +72,16 @@ public class ConversationControllerTest extends Mockito {
         verify(mockChatService, times(1)).getConversationBetweenUsers("123", "456");
         verifyNoMoreInteractions(mockChatService);
     }
+
+    @Test
+    public void Given_Get_With_Invalid_or_Null_QueryStrings_Return_Not_Found() throws Exception {
+        // Arrange
+        when(request.getQueryString()).thenReturn(null);
+
+        // Act
+        conversationController.doGet(request, response);
+
+        // Assert
+        verifyNoInteractions(mockChatService);
+    }
 }

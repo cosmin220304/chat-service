@@ -43,7 +43,7 @@ public final class ChatServiceImpl implements ChatService{
     }
 
     @Override
-    public Message sendMessage(@NonNull String conversationId, @NonNull String message) {
+    public Message sendMessage(@NonNull String conversationId, @NonNull Message message) {
         return null;
     }
 
