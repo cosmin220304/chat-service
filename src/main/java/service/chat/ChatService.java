@@ -1,15 +1,13 @@
 package service.chat;
 
+import com.mongodb.lang.Nullable;
 import lombok.NonNull;
 import models.Conversation;
 import models.Message;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public interface ChatService {
-    @Contract(pure = true)
     static @Nullable ChatService getInstance() {
         return null;
     }
