@@ -29,7 +29,7 @@ public final class ChatServiceImpl implements ChatService{
 
     @Override
     public List<Conversation> getAllConversationsByUserId(@NonNull String userId) {
-        return null;
+        return conversationService.listConversation(userId);
     }
 
     @Override

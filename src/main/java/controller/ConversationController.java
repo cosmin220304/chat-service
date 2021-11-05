@@ -3,6 +3,7 @@ package controller;
 import aop.annotations.ValidateMessagePayload;
 import models.Conversation;
 import service.chat.ChatService;
+import service.chat.ChatServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ public class ConversationController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        chatService = ChatService.getInstance();
+        chatService = ChatServiceImpl.getInstance();
     }
 
     public void init(ChatService chatService) throws ServletException {

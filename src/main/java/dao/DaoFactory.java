@@ -16,9 +16,9 @@ public final class DaoFactory {
     private static DaoFactory instance;
 
     private DaoFactory(){
-        this.conversationDao = new ConversationDaoImpl();
+        this.db = MongoClients.create(todo: add url).getDatabase("ConversationStorage");
+        this.conversationDao = new ConversationDaoImpl(db);
         this.messageDao = new MessageDaoImpl();
-        this.db = MongoClients.create("mongodb://localhost:27017").getDatabase("ConversationStorage");
     }
 
     public static DaoFactory getInstance() {

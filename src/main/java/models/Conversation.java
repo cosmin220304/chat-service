@@ -1,15 +1,13 @@
 package models;
 
 import dao.dto.MessageDto;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @RequiredArgsConstructor
 public class Conversation {
     @NonNull
