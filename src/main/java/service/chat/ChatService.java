@@ -2,8 +2,8 @@ package service.chat;
 
 import com.mongodb.lang.Nullable;
 import lombok.NonNull;
-import models.Conversation;
-import models.Message;
+import model.Conversation;
+import model.Message;
 
 import java.util.List;
 

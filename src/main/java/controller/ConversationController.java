@@ -1,7 +1,7 @@
 package controller;
 
-import aop.annotations.ValidateMessagePayload;
-import models.Conversation;
+import com.google.gson.Gson;
+import model.Conversation;
 import service.chat.ChatService;
 import service.chat.ChatServiceImpl;
 
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/api/conversations")
@@ -41,7 +40,7 @@ public class ConversationController extends HttpServlet {
         if (queryString.contains("userId")) {
             String userId = queryString.split("userId=")[1];
             List<Conversation> conversations = chatService.getAllConversationsByUserId(userId);
-            response.getWriter().println(conversations);
+            response.getWriter().println(new Gson().toJson(conversations));
 
         } else if (queryString.contains("conversationId")) {
             String conversationId = queryString.split("conversationId=")[1];

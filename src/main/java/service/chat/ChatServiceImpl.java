@@ -1,8 +1,8 @@
 package service.chat;
 
 import lombok.NonNull;
-import models.Conversation;
-import models.Message;
+import model.Conversation;
+import model.Message;
 import service.conversation.ConversationService;
 import service.conversation.ConversationServiceImpl;
 import service.message.MessageService;
@@ -29,7 +29,8 @@ public final class ChatServiceImpl implements ChatService{
 
     @Override
     public List<Conversation> getAllConversationsByUserId(@NonNull String userId) {
-        return conversationService.listConversation(userId);
+        List<Conversation> ret = conversationService.listConversation(userId);
+        return ret;
     }
 
     @Override

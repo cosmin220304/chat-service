@@ -2,14 +2,12 @@ package controller;
 
 import aop.annotations.ValidateMessagePayload;
 import com.google.gson.Gson;
-import models.Message;
-import models.SendMessageRequestPayload;
+import model.Message;
+import model.SendMessageRequestPayload;
 import service.chat.ChatService;
-import service.chat.ChatServiceImpl;
 
 import java.io.*;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

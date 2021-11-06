@@ -1,6 +1,6 @@
 package service.conversation;
 
-import models.Conversation;
+import model.Conversation;
 
 import java.util.List;
 

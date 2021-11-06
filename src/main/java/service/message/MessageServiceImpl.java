@@ -2,7 +2,7 @@ package service.message;
 
 import dao.DaoFactory;
 import lombok.NonNull;
-import models.Message;
+import model.Message;
 
 import java.util.List;
 

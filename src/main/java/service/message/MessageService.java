@@ -1,7 +1,7 @@
 package service.message;
 
 import lombok.NonNull;
-import models.Message;
+import model.Message;
 
 import java.util.List;
 

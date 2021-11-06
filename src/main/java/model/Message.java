@@ -1,17 +1,14 @@
-package models;
+package model;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 @RequiredArgsConstructor
 public class Message {
-    @NonNull
     private final String id;
     @NonNull
     private final String conversationId;
