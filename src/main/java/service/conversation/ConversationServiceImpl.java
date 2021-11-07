@@ -6,7 +6,10 @@ import dao.dto.ConversationDto;
 import lombok.SneakyThrows;
 import model.Conversation;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ConversationServiceImpl implements ConversationService {
@@ -19,10 +22,15 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
+    @SneakyThrows
     public Conversation createConversation(String participant1, String participant2) {
-        return conversationDtoToModel(
-                conversationDao.create(new ConversationDto(null, participant1, participant2, null))
-        );
+        if (readConversation(participant1, participant2).isEmpty()) {
+            return conversationDtoToModel(
+                    conversationDao.create(new ConversationDto(null, participant1, participant2, null))
+            );
+        } else {
+            throw new InstanceAlreadyExistsException();
+        }
     }
 
     @Override
@@ -48,13 +56,22 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public Conversation readConversation(String conversationId) {
-        return null;
+    public Optional<Conversation> readConversation(String conversationId) {
+        return conversationDao
+                .readById(conversationId)
+                .map(this::conversationDtoToModel);
     }
 
     @Override
-    public Conversation readConversation(String participant1, String participant2) {
-        return null;
+    public Optional<Conversation> readConversation(String participant1, String participant2) {
+        return conversationDao
+                .readAll()
+                .stream()
+                .filter(conversationDto ->
+                        (conversationDto.getParticipant1().equals(participant1) && conversationDto.getParticipant2().equals(participant2))
+                                || (conversationDto.getParticipant1().equals(participant2) && conversationDto.getParticipant2().equals(participant1))
+                ).findFirst()
+                .map(this::conversationDtoToModel);
     }
 
     private Conversation conversationDtoToModel(ConversationDto conversationDto) {

@@ -45,13 +45,13 @@ public class ConversationController extends HttpServlet {
         } else if (queryString.contains("conversationId")) {
             String conversationId = queryString.split("conversationId=")[1];
             List<Conversation> conversations = chatService.getAllConversationsById(conversationId);
-            response.getWriter().println(conversations);
+            response.getWriter().println(new Gson().toJson(conversations));
 
         } else if (queryString.contains("user1") && queryString.contains("user2")) {
             String user1 = queryString.split("user1=")[1].split("&user2=")[0];
             String user2 = queryString.split("user2=")[1];
             Conversation conversation = chatService.getConversationBetweenUsers(user1, user2);
-            response.getWriter().println(conversation);
+            response.getWriter().println(new Gson().toJson(conversation));
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

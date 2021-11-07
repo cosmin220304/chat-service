@@ -9,13 +9,16 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import dao.dto.ConversationDto;
 import dao.dto.MessageDto;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class ConversationDaoImpl implements ConversationDao {
 
@@ -26,8 +29,22 @@ public class ConversationDaoImpl implements ConversationDao {
     }
 
     @Override
-    public ConversationDto readById(String id) {
-        return null;
+    public Optional<ConversationDto> readById(String id) {
+        MongoCollection<Document> collection = db.getCollection("Conversation");
+        try (MongoCursor<Document> cursor = collection.find(Filters.eq("_id", id)).iterator()) {
+            Document x = cursor.next();
+            return Optional.of(
+                    new ConversationDto(
+                            x.getObjectId("_id").toString(),
+                            x.getString("participant1"),
+                            x.getString("participant2"),
+                            x.getList("messages", MessageDto.class)
+                    )
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
