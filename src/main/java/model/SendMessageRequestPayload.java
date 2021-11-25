@@ -9,4 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class SendMessageRequestPayload {
     @NonNull
     private final String message;
+
+    @NonNull
+    private final String senderId;
 }

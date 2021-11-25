@@ -20,7 +20,7 @@ public final class DaoFactory {
                 .create("mongodb+srv://cosmin0123:cosmin0123@cluster0.a2fi8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
                 .getDatabase("ConversationStorage");
         this.conversationDao = new ConversationDaoImpl(db);
-        this.messageDao = new MessageDaoImpl();
+        this.messageDao = new MessageDaoImpl(db);
     }
 
     public static DaoFactory getInstance() {

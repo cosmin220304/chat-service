@@ -52,6 +52,7 @@ public class ConversationController extends HttpServlet {
             String user2 = queryString.split("user2=")[1];
             Conversation conversation = chatService.getConversationBetweenUsers(user1, user2);
             response.getWriter().println(new Gson().toJson(conversation));
+
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

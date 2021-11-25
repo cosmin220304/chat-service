@@ -46,7 +46,7 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public List<Conversation> listConversation(String user) {
         return conversationDao
-                .readAll()
+                .readAll(null)
                 .stream()
                 .filter(conversationDto ->
                         conversationDto.getParticipant1().equals(user)
@@ -65,7 +65,7 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public Optional<Conversation> readConversation(String participant1, String participant2) {
         return conversationDao
-                .readAll()
+                .readAll(null)
                 .stream()
                 .filter(conversationDto ->
                         (conversationDto.getParticipant1().equals(participant1) && conversationDto.getParticipant2().equals(participant2))

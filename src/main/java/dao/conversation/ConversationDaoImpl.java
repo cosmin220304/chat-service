@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.UpdateResult;
 import dao.dto.ConversationDto;
 import dao.dto.MessageDto;
 import org.bson.Document;
@@ -48,10 +49,10 @@ public class ConversationDaoImpl implements ConversationDao {
     }
 
     @Override
-    public List<ConversationDto> readAll() {
+    public List<ConversationDto> readAll(Bson filters) {
         List<ConversationDto> returnedConversations = new ArrayList<ConversationDto>();
         MongoCollection<Document> collection = db.getCollection("Conversation");
-        try (MongoCursor<Document> cursor = collection.find().iterator()) {
+        try (MongoCursor<Document> cursor = collection.find(filters).iterator()) {
             while (cursor.hasNext()) {
                 Document x = cursor.next();
                 returnedConversations.add(
@@ -81,6 +82,14 @@ public class ConversationDaoImpl implements ConversationDao {
 
     @Override
     public ConversationDto update(ConversationDto entry) {
-        return null;
+        MongoCollection<Document> collection = db.getCollection("Conversation");
+
+        Document updatedConversation = new Document();
+        updatedConversation.put("participant1", entry.getParticipant1());
+        updatedConversation.put("participant2", entry.getParticipant2());
+        updatedConversation.put("messages", Collections.emptyList());
+
+        collection.updateOne(Filters.eq("_id", entry.getId()), updatedConversation);
+        return entry;
     }
 }
